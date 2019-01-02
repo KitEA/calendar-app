@@ -4,7 +4,11 @@ import ControlPanel from "../components/ControlPanel.jsx";
 
 class Calendar extends Component {
   render() {
-    return <ControlPanel />;
+    return (
+      <Container>
+        <ControlPanel />
+      </Container>
+    );
   }
 }
 
