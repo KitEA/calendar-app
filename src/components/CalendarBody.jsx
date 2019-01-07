@@ -1,54 +1,64 @@
 import React from "react";
-import { Button, Container, Row, Col } from "reactstrap";
+import { Container, Row } from "reactstrap";
+import {
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  eachDay
+} from "date-fns";
+import CalendarCell from "./CalendarCell.jsx";
 
-const CalendarBody = () => (
-  <Container fluid className="mt-3 mx-5">
-    <Row id="calendarCells">
-      <Col><Button id="cellAction"><p className="cell-content"><span>Monday, 25</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>Tuesday, 26</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>Wednesday, 27</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>Thursday, 28</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>Friday, 1</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>Saturday, 2</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>Sunday, 3</span></p></Button></Col>
-    </Row>
-    <Row id="calendarCells">
-      <Col><Button id="cellAction"><p className="cell-content"><span>4</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>5</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>6</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>7</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>8</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>9</span><span>Drink</span><span>Peter, Mcihael</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>10</span></p></Button></Col>
-    </Row>
-    <Row id="calendarCells">
-      <Col><Button id="cellAction"><p className="cell-content"><span>11</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>12</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>13</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>14</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>15</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>16</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>17</span></p></Button></Col>
-    </Row>
-    <Row id="calendarCells">
-      <Col><Button id="cellAction"><p className="cell-content"><span>18</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>19</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>20</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>21</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>22</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>23</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>24</span></p></Button></Col>
-    </Row>
-    <Row id="calendarCells">
-      <Col><Button id="cellAction"><p className="cell-content"><span>25</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>26</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>27</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>28</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>29</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>30</span></p></Button></Col>
-      <Col><Button id="cellAction"><p className="cell-content"><span>31</span></p></Button></Col>
-    </Row>
-  </Container>
-);
+class CalendarBody extends React.Component {
+  renderCalendarDays() {
+    const daysOnCalendarPage = 35;
+    const daysInWeek = 7;
+
+    const monthStart = startOfMonth(this.props.currentMonth);
+    const monthEnd = endOfMonth(monthStart);
+    const startDate = startOfWeek(monthStart);
+    const endDate = endOfWeek(monthEnd);
+    const eachDayOfMonth = eachDay(startDate, endDate);
+
+    // Massive for storing cells and their coresponding rows
+    let monthData = [];
+
+    // Separate weeks for rows from whole month
+    const weeksOfMonth = [];
+    for (
+      let firstDayOfWeek = 0;
+      firstDayOfWeek < daysOnCalendarPage;
+      firstDayOfWeek = firstDayOfWeek + daysInWeek
+    ) {
+      weeksOfMonth.push(
+        eachDayOfMonth.slice(firstDayOfWeek, firstDayOfWeek + daysInWeek)
+      );
+    }
+
+    for (let weekNumber = 0; weekNumber < weeksOfMonth.length; weekNumber++) {
+      monthData.push(
+        <Row id="calendarCells">
+          {weeksOfMonth[weekNumber].map(day => (
+            <CalendarCell
+              day={day}
+              weekNumber={weekNumber}
+              currentMonth={monthStart}
+            />
+          ))}
+        </Row>
+      );
+    }
+
+    return (
+      <Container fluid className="mt-3 mx-5">
+        {monthData}
+      </Container>
+    );
+  }
+
+  render() {
+    return <div>{this.renderCalendarDays()}</div>;
+  }
+}
 
 export default CalendarBody;
