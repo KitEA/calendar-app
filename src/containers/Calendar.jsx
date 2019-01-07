@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Container, Row } from "reactstrap";
 import ControlPanel from "../components/ControlPanel.jsx";
+import DatePicker from "../components/DatePicker.jsx";
+import CalendarBody from "../components/CalendarBody.jsx";
 
 class Calendar extends Component {
   render() {
     return (
-      <Container>
+      <div>
         <ControlPanel />
-      </Container>
+        <DatePicker />
+        <CalendarBody />
+      </div>
     );
   }
 }

@@ -1,22 +1,34 @@
-import React, { Component } from "react";
-import { Jumbotron, Button, Input, Row, Col} from "reactstrap";
+import React from "react";
+import {
+  Navbar,
+  Nav,
+  NavItem,
+  Button,
+  Input,
+  InputGroup,
+  Col
+} from "reactstrap";
 
 const ControlPanel = () => (
-  <Jumbotron>
-    <Row className="no-gutters">
-      <Col className="mr-2" xs="auto">
-        <Button color="primary">
-          Добавить
-        </Button>
-      </Col>
-      <Col xs="auto">
-        <Button color="primary">Обновить</Button>
-      </Col>
-      <Col className="ml-auto" xs="3">
-        <Input type="text" placeholder="Событие, дата или участник" />
-      </Col>
-    </Row>
-  </Jumbotron>
+  <Navbar className="align-items-end pb-4">
+    <Nav>
+      <NavItem className="ml-4 mr-3">
+        <Button color="primary">Add</Button>
+      </NavItem>
+      <NavItem>
+        <Button color="primary">Update</Button>
+      </NavItem>
+    </Nav>
+    <Col className="ml-auto" xs="3">
+      <InputGroup>
+        <i
+          class="fa fa-search mr-2 my-auto"
+          style={{ fontSize: "18px", color: "#A9A9A9" }}
+        />
+        <Input type="text" placeholder="Event, date or participant" />
+      </InputGroup>
+    </Col>
+  </Navbar>
 );
 
 export default ControlPanel;
