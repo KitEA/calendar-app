@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ControlPanel from "../components/ControlPanel.jsx";
 import DatePicker from "../components/DatePicker.jsx";
-import CalendarBody from "../components/CalendarBody.jsx";
+import CalendarBody from "./CalendarBody.jsx";
 import { addMonths, subMonths } from "date-fns";
 
 class Calendar extends React.Component {

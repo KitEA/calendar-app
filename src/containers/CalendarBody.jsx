@@ -7,7 +7,7 @@ import {
   endOfWeek,
   eachDay
 } from "date-fns";
-import CalendarCell from "./CalendarCell.jsx";
+import CalendarCell from "../components/CalendarCell.jsx";
 
 class CalendarBody extends React.Component {
   renderCalendarDays() {
@@ -37,9 +37,10 @@ class CalendarBody extends React.Component {
 
     for (let weekNumber = 0; weekNumber < weeksOfMonth.length; weekNumber++) {
       monthData.push(
-        <Row id="calendarCells">
+        <Row key={weekNumber} id="calendarCells">
           {weeksOfMonth[weekNumber].map(day => (
             <CalendarCell
+              key={day}
               day={day}
               weekNumber={weekNumber}
               currentMonth={monthStart}
