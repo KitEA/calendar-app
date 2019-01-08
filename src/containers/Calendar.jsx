@@ -9,13 +9,7 @@ class Calendar extends React.Component {
     super(props);
 
     this.state = {
-      currentMonth: new Date(),
-      importantEvent: {
-        impEvent: "",
-        dayMonthYear: "",
-        nameOfParticipants: "",
-        description: ""
-      }
+      currentMonth: new Date()
     };
   }
 
@@ -36,10 +30,7 @@ class Calendar extends React.Component {
 
     return (
       <div>
-        <ControlPanel
-          addPopoverIsOpenned={this.state.addPopoverIsOpenned}
-          toggle={() => this.toggle()}
-        />
+        <ControlPanel />
         <DatePicker
           dateFormat={dateFormat}
           currentMonth={this.state.currentMonth}

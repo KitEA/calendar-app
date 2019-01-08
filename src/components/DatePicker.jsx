@@ -1,6 +1,7 @@
 import React from "react";
-import { Row, Button } from "reactstrap";
+import { Row, Button, Badge } from "reactstrap";
 import { format } from "date-fns";
+import ru from "date-fns/locale/ru";
 
 const DatePicker = ({ dateFormat, currentMonth, prevMonth, nextMonth }) => (
   <Row className="mt-3 ml-5">
@@ -13,7 +14,7 @@ const DatePicker = ({ dateFormat, currentMonth, prevMonth, nextMonth }) => (
     >
       <i className="fa fa-caret-left" />
     </Button>
-    <h5>{format(currentMonth, dateFormat)}</h5>
+    <h5>{format(currentMonth, dateFormat, {locale: ru})}</h5>
     <Button
       className="ml-2"
       outline
@@ -23,6 +24,7 @@ const DatePicker = ({ dateFormat, currentMonth, prevMonth, nextMonth }) => (
     >
       <i className="fa fa-caret-right" />
     </Button>
+    <h5 className="mt-1 ml-2"><Badge id="dayIndicator">Сегодня</Badge></h5>
   </Row>
 );
 
