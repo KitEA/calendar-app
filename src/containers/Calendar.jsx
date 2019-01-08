@@ -4,12 +4,13 @@ import DatePicker from "../components/DatePicker.jsx";
 import CalendarBody from "./CalendarBody.jsx";
 import { addMonths, subMonths } from "date-fns";
 
-class Calendar extends React.Component {
+class Calendar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentMonth: new Date()
+      currentMonth: new Date(),
+      calendarEvents: Array(35).fill(null)
     };
   }
 
@@ -37,7 +38,10 @@ class Calendar extends React.Component {
           nextMonth={() => this.nextMonth()}
           prevMonth={() => this.prevMonth()}
         />
-        <CalendarBody currentMonth={this.state.currentMonth} />
+        <CalendarBody 
+          currentMonth={this.state.currentMonth} 
+          calendarEvents={this.state.calendarEvents}
+        />
       </div>
     );
   }

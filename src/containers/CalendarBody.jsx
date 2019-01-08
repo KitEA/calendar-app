@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Container, Row } from "reactstrap";
 import {
   startOfMonth,
@@ -9,15 +9,15 @@ import {
 } from "date-fns";
 import CalendarCell from "../components/CalendarCell.jsx";
 
-class CalendarBody extends React.Component {
+class CalendarBody extends Component {
   renderCalendarDays() {
     const daysOnCalendarPage = 35;
     const daysInWeek = 7;
 
     const monthStart = startOfMonth(this.props.currentMonth);
     const monthEnd = endOfMonth(monthStart);
-    const startDate = startOfWeek(monthStart, {weekStartsOn: 1});
-    const endDate = endOfWeek(monthEnd, {weekStartsOn: 1});
+    const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
+    const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
     const eachDayOfMonth = eachDay(startDate, endDate);
 
     // Massive for storing cells and their coresponding rows
@@ -25,6 +25,7 @@ class CalendarBody extends React.Component {
 
     // Separate weeks for rows from whole month
     const weeksOfMonth = [];
+
     for (
       let firstDayOfWeek = 0;
       firstDayOfWeek < daysOnCalendarPage;
@@ -35,19 +36,28 @@ class CalendarBody extends React.Component {
       );
     }
 
+    let calendarEvents = this.props.calendarEvents;
+    calendarEvents[12] = "hi";
+
+    // Transit for next week in array of cell
+    let weekCountSaver = 0;
+
     for (let weekNumber = 0; weekNumber < weeksOfMonth.length; weekNumber++) {
       monthData.push(
         <Row key={weekNumber} id="calendarCells">
-          {weeksOfMonth[weekNumber].map(day => (
+          {weeksOfMonth[weekNumber].map((day, index) => (
             <CalendarCell
+              calendarEvent={
+                calendarEvents[weekCountSaver + index + weekNumber]
+              }
               key={day}
               day={day}
               weekNumber={weekNumber}
-              currentMonth={monthStart}
             />
           ))}
         </Row>
       );
+      weekCountSaver += 6;
     }
 
     return (
