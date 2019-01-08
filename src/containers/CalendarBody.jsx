@@ -37,7 +37,14 @@ class CalendarBody extends Component {
     }
 
     let calendarEvents = this.props.calendarEvents;
-    calendarEvents[12] = "hi";
+    calendarEvents[12] = {
+      EventName : "Напиться!",
+      Participants : "Витя Костин, Пётр Михайлов."
+    };
+    calendarEvents[25] = {
+      EventName : "ДР!",
+      Participants : "Дима Малодцов"
+    };
 
     // Transit for next week in array of cell
     let weekCountSaver = 0;

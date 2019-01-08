@@ -9,14 +9,12 @@ const CalendarCell = ({ day, weekNumber, calendarEvent }) => (
       <p className="cell-content">
         <span>
           {weekNumber == 0
-            ? format(day, "dddd", {locale: ru}) + ", " + format(day, "D")
+            ? format(day, "dddd", { locale: ru }) + ", " + format(day, "D")
             : format(day, "D")}
         </span>
+        <span>{calendarEvent != null ? calendarEvent["EventName"] : null}</span>
         <span>
-          {calendarEvent}
-        </span>
-        <span>
-          {/* TODO: eventParticipants */}
+          {calendarEvent != null ? calendarEvent["Participants"] : null}
         </span>
       </p>
     </Button>
